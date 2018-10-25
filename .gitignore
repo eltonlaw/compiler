@@ -1,3 +1,5 @@
 *.o
-compiler.out
+compiler
+test*
+grammar.y
 

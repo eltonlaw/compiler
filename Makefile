@@ -6,7 +6,7 @@ build:
 	clang -g -Werror -Wall main.c -o compiler
 
 test: build
-	./compiler "test.txt"
+	./compiler "test_1.txt"
 
 run:
 	./compiler
