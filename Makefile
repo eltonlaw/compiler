@@ -3,16 +3,14 @@
 all: build test
 
 build:
-	gcc -Werror -Wall main.c -o compiler
+	clang -g -Werror -Wall main.c -o compiler
 
-test:
-	echo "hello world" >> "test.txt"
-	./compiler.out "test.txt"
-	rm "test.txt"
+test: build
+	./compiler "test.txt"
 
 run:
-	./compiler.out
+	./compiler
 
 clear:
-	rm -f ./compiler.out
+	rm -f ./compiler
 	clear
