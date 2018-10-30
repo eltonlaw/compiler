@@ -1,16 +1,32 @@
-.PHONY: all build run test clear
+.PHONY: all clean build dist test test_1 test_2 install uninstall
+export
 
-all: build test
+CC = clang
+CFLAGS = -g -Werror -Wall
+installdir = /usr/local/bin
+package = cpiler
+version = 0.0.1
+distdir = $(package)-$(version)
 
-build:
-	clang -g -Werror -Wall main.c -o compiler
+all clean build:
+	cd src && $(MAKE) $@
+	@echo '*** Makefile $@'
 
-test: build
-	./compiler "test_1.txt"
+dist: build
+	cd dist && $(MAKE) $@
+	@echo '*** Makefile $@'
 
-run:
-	./compiler
+test test_1 test_2: build
+	cp src/$(package) test/$(package)
+	cd test && $(MAKE) $@
+	-rm test/$(package)
+	@echo '*** Makefile $@'
 
-clear:
-	rm -f ./compiler
-	clear
+install: build
+	chmod +x src/$(package)
+	cp src/$(package) $(installdir)
+	@echo '*** Makefile $@'
+
+uninstall:
+	rm $(installdir)/cpiler
+	@echo '*** Makefile $@'

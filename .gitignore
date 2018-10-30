@@ -1,5 +1,5 @@
 *.o
-compiler
+src/cpiler
 test*
-grammar.y
+dist/*.tar.gz
 
