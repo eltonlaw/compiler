@@ -2,13 +2,13 @@
 export
 
 CC = clang
-CFLAGS = -g -Werror -Wall
+CFLAGS = -g -O0 -Werror -Wall
 installdir = /usr/local/bin
 package = cpiler
 version = 0.0.1
 distdir = $(package)-$(version)
 
-all clean build:
+all clean build main.o:
 	cd src && $(MAKE) $@
 	@echo '*** Makefile $@'
 

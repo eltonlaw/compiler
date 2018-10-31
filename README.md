@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2018-10-31
+
+Seperate `main.c`. Issue found with the left and right braces, the `next_token` function diffrentiates tokens by whitespace currently. Maybe don't use a `switch...case` and swap in with `mpc` or some regex. Maybe use the `isspace` function instead of checking for ' ' and `\n` .
+
 ## 2018-10-29
 
 Create Makefile targets for building, testing, distribution and installation:
