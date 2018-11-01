@@ -2,7 +2,84 @@
 
 ## 2018-10-31
 
+Fixed issue with the left and right braces. With this, whenever a type of whitespace, type of bracket or semicolon is encountered, it automatically ends the token value and sets the pointer back so the special character is included. `fseek` was used to move the file pointer back an iteration. The `SEEK_CUR` macro is used whose value is the address of the current pointer. The `-1` represents moving the `filep` one element backward.
+
+    fseek(filep, -1, SEEK_CUR); 
+
+Here's the current output of the test:
+
+    ./cpiler test_1.txt
+    ========= MAIN START ============
+    getc(filep)=<i>
+    getc(filep)=<n>
+    getc(filep)=<t>
+    getc(filep)=< >
+    TOKEN: Type: 6 | Value: 'int'
+    ------                     
+    getc(filep)=< >
+    TOKEN: Type: 6 | Value: ' '
+    ------                     
+    getc(filep)=<m>
+    getc(filep)=<a>
+    getc(filep)=<i>
+    getc(filep)=<n>
+    getc(filep)=<(>
+    TOKEN: Type: 6 | Value: 'main'
+    ------         
+    getc(filep)=<(>
+    TOKEN: Type: 6 | Value: '('     
+    ------
+    getc(filep)=<)>
+    TOKEN: Type: 6 | Value: ')'
+    ------
+    getc(filep)=< >
+    TOKEN: Type: 6 | Value: ' '
+    ------
+    getc(filep)=<{>
+    TOKEN: Type: 6 | Value: '{'
+    ------
+    getc(filep)=< >
+    TOKEN: Type: 6 | Value: ' '
+    ------
+    getc(filep)=<r>
+    getc(filep)=<e>
+    ...
+
+Need to work on the token type next.
+
+## 2018-10-30
+
 Seperate `main.c`. Issue found with the left and right braces, the `next_token` function diffrentiates tokens by whitespace currently. Maybe don't use a `switch...case` and swap in with `mpc` or some regex. Maybe use the `isspace` function instead of checking for ' ' and `\n` .
+
+    ./cpiler test_1.txt
+    ========= MAIN START ============
+    <i> encountered   
+    <n> encountered
+    <t> encountered
+    whitespace encountered
+    Type: 6 | Value: int
+    ------         
+    <m> encountered
+    <a> encountered
+    <i> encountered       
+    <n> encountered        
+    lparen encountered
+    Type: 6 | Value: main
+    ------                
+    rparen encountered
+    Type: 6 | Value:
+    ------         
+    whitespace encountered
+    Type: 6 | Value:  
+    ------
+    <{> encountered         
+    whitespace encountered           
+    Type: 6 | Value: {      
+    ------                                               
+    <r> encountered
+    <e> encountered    
+    <t> encountered
+    ...
 
 ## 2018-10-29
 

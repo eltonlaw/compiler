@@ -2,11 +2,11 @@ test: test_1 test_2
 	@echo '--- test/Makefile $@'
 
 test_1:
-	./$(package) test_1.txt
+	./$(package) 1.test.c
 	@echo '--- test/Makefile $@'
 
 test_2:
-	./$(package) test_2.txt
+	./$(package) 2.test.c
 	@echo '--- test/Makefile $@'
 
 

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "util.h"
 #include "lexer.h"
 
 
@@ -22,7 +23,7 @@ int main(int argc, char* argv[]) {
 
     /* Read inputs */
     FILE * fp;  // file pointer
-    fp = fopen(argv[1], "r");
+    fp = fopen(argv[1], "rb");
 
     /* Check read in file */
     if (!fp) {
@@ -36,7 +37,8 @@ int main(int argc, char* argv[]) {
 
 
     while (next_token(fp, token)) {
-        fprintf(stdout, "Type: %u | Value: %s\n", token->type, token->value);
+        fprintf(stdout, "TOKEN: Type: %u | Value: '%s'\n", token->type, token->value);
+        token->value[100] = '\0';
         fprintf(stdout, "------\n");
     }
 

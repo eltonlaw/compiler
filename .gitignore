@@ -1,5 +1,4 @@
 *.o
 src/cpiler
-test*
 dist/*.tar.gz
 

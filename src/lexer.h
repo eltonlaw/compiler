@@ -1,8 +1,6 @@
 #ifndef lexer_h
 #define lexer_h
 
-#include "util.h"
-
 typedef enum TokenType TokenType;
 typedef struct Token_t Token_t;
 typedef struct TokenList_t TokenList_t;
