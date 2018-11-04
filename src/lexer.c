@@ -4,14 +4,31 @@
 #include "lexer.h"
 #include "util.h"
 
-int next_token(FILE *filep, Token_t *token) {
+int next_token_value(FILE *fp, Token_t *token);
+int next_token_type(Token_t *token);
+
+int next_token(FILE *fp, Token_t *token) {
+    /******  Main Wrapper Function ******/
+
+    /* From `fp` get the next string */
+    if (!(next_token_value(fp, token))) {
+        LOGGER_DEBUG("next_token_value(): EOF encountered \n");
+        return false;
+    }
+    /* Lookup return value from `next_token_value` */
+    if (!(next_token_type(token))) {
+        LOGGER_DEBUG("next_token_type(): Error encountered. \n");
+        return false;
+    }
+    return true;
+}
+
+int next_token_value(FILE *fp, Token_t *token) {
     char in;
     int i = 0;
-    // static long int pos = 0;
-    while ((in = getc(filep)) != EOF) {
-        // pos += 1;
-        // printf("<%c>: pos=%ld\n",in, pos);
-        fprintf(stdout, "getc(filep)=<%c>\n",in);
+    /* Loop through each character in fp */
+    while ((in = getc(fp)) != EOF) {
+        LOGGER_DEBUG("getc(fp)=<%c>\n",in);
         if (isspace(in) || \
             in == ';' || \
             in == '{' || \
@@ -19,19 +36,29 @@ int next_token(FILE *filep, Token_t *token) {
             in == '(' || \
             in == ')') {
             if (i == 0) {
+                /* If special character is first thing encountered*/
                 token->value[0] = in;
                 token->value[1] = '\0';
-                return true;
+                break;
             } else {
-                // pos -= 1;
-                // fseek(filep, pos, SEEK_SET); 
-                fseek(filep, -1, SEEK_CUR); 
+                /* If special character isn't the first thing encountered*/
+                fseek(fp, -1, SEEK_CUR); /* decrement fp */
                 token->value[i] = '\0';
-                return true;
+                break;
             }
         } else {
+            /* If the token is something regular like
+             * a letter, add it to the string and go
+             * up an address
+             */
             token->value[i++] = in;
         }
     }
-    return false;
+    if (in == EOF) {
+        return false;
+    }
+    return true;
+}
+int next_token_type(Token_t *token) {
+    return true;
 }

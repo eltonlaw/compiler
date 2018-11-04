@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2018-11-04
+
+Added comments and cleaned up code a bit. Added multi level logging; defined some macros in `util.h`. Following the way [logging is defined in Python](https://docs.python.org/4.7/library/logging.html), there are 5 levels: DEBUG(1), INFO(2), WARNING(3), ERROR(4) and CRITICAL(5). The macro was directly referenced from [StackOverflow](https://stackoverflow.com/questions/1644868/c-define-macro-for-debug-printing/) and renamed to `LOGGER_*`.
+
+TODO: Define LOGGING_LEVEL from the Makefile so the dist build doesn't have DEBUG level logging.
+
 ## 2018-10-31
 
 Fixed issue with the left and right braces. With this, whenever a type of whitespace, type of bracket or semicolon is encountered, it automatically ends the token value and sets the pointer back so the special character is included. `fseek` was used to move the file pointer back an iteration. The `SEEK_CUR` macro is used whose value is the address of the current pointer. The `-1` represents moving the `filep` one element backward.

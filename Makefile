@@ -16,7 +16,7 @@ dist: build
 	cd dist && $(MAKE) $@
 	@echo '*** Makefile $@'
 
-test test_1 test_2: build
+test test_1 test_2 test_0_input test_2_input: build
 	cp src/$(package) test/$(package)
 	cd test && $(MAKE) $@
 	-rm test/$(package)
