@@ -8,7 +8,7 @@ Fixed issue with the left and right braces. With this, whenever a type of whites
 
 Here's the current output of the test:
 
-    ./cpiler test_1.txt
+    ./cpiler 1.test.c
     ========= MAIN START ============
     getc(filep)=<i>
     getc(filep)=<n>
